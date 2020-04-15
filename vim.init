@@ -1,0 +1,114 @@
+set nocompatible
+syntax on
+set clipboard=unnamedplus
+set nowrap
+set encoding=utf8
+filetype off
+set background=dark
+set number
+set ruler
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set expandtab
+set laststatus=2
+set cursorline 
+set t_Co=256
+set background=dark
+set mouse=
+if (has("termguicolors"))
+  set termguicolors
+endif
+highlight LineNr guifg=#4466ff
+let g:lightline = {
+      \ 'colorscheme': 'selenized_dark',
+      \ }
+
+" Displaying whitechars
+set listchars=eol:⏎,tab:>-,trail:·,extends:>,precedes:<,space:·
+set list
+
+" Mapping for better movements
+noremap ; l
+noremap l k
+noremap k j
+noremap j h
+
+" Turn off arrows
+cnoremap <Down> <Nop>
+cnoremap <Left> <Nop>
+cnoremap <Right> <Nop>
+cnoremap <Up> <Nop>
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+inoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Up> <Nop>
+vnoremap <Down> <Nop>
+vnoremap <Left> <Nop>
+vnoremap <Right> <Nop>
+vnoremap <Up> <Nop>
+
+" Plugins
+set rtp+=~/.config/nvim/bundle/Vundle.vim
+call vundle#begin('~/.config/nvim/bundle')
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'rafaqz/ranger.vim'
+Plugin 'drewtempelmeyer/palenight.vim'
+Plugin 'itchyny/lightline.vim'
+Plugin 'junegunn/fzf.vim'
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+
+call vundle#end()
+filetype plugin indent on
+colorscheme palenight
+
+" Config for fuzzy finder
+function FuzzyFind()
+    call fzf#run({
+     \  'source': 'rg --files',
+     \  'sink': 'e',
+     \  'options': '-m --preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"', 'down': '40%'})
+endfunction
+
+nn fff <Esc>:call FuzzyFind()<Return>
+
+
+" Custom commands
+command! Reload source ~/.config/nvim/init.vim
+command! Config e ~/.config/nvim/init.vim
+command! Cheat tabe ~/vimcheatsheet | set noma
+
+" HTML abbreviation
+:iabbrev </ </<C-X><C-O>
+
+" Scrolling
+nn <m-k> 3<c-e>
+nn <m-l> 3<c-y>
+nn <c-k> 3<c-e>
+nn <c-l> 3<c-y>
+vn <m-k> 3<c-e>
+vn <m-l> 3<c-y>
+vn <c-k> 3<c-e>
+vn <c-l> 3<c-y>
+ino <m-k> <Esc>3<c-e>a
+ino <m-l> <Esc>3<c-y>a
+ino <c-k> <Esc>3<c-e>a
+ino <c-l> <Esc>3<c-y>a
+
+"Ranger mappings
+noremap <m-e><m-r> :RangerEdit<CR>
+noremap <m-r> :RangerEdit<CR>
+noremap <m-t><m-r> :RangerTab<CR>
+
+" Buffer navigation
+noremap <silent> <m-`> :ls<cr>:b!<space>
+
+" Better yanking
+nn p gP
+nn P gp
+set virtualedit=onemore
