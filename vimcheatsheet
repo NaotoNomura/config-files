@@ -1,0 +1,39 @@
+Moving in insert mode:
+  <c-o>{motion}
+
+Copying:
+  y
+
+Pasting:
+  p
+
+Cutting:
+  d
+
+Scrolling:
+  <m-k> / <c-k> => UP
+  <m-k> / <c-k> => DOWN
+
+Command history:
+  <c-f>
+
+Invert case:
+  <s-`> => just like typing "~"
+
+Paste macro:
+  "qp => "q" macro
+
+Copy to macro:
+  "qy => "q" macro
+
+Increment value:
+  <c-a>
+
+Decrement value:
+  <c-x>
+
+Eval line in python:
+  !!python
+
+Insert variable in text:
+  "=ip => "i" variable
